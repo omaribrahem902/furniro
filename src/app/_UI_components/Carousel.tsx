@@ -54,7 +54,7 @@ export default function HeroCarousel() {
       </div>
 
       {/* Navigation Dots */}
-      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-3">
         {slides.map((_, idx) => (
           <button
             key={idx}

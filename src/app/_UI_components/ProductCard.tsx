@@ -5,10 +5,10 @@ type ProductCardProps = Products;
 
 const ProductCard = ({ id, image, title, subtitle, price, beforeSalePrice, badgeText }: ProductCardProps) => {
   return (
-    <div className="relative max-w-[285px] group overflow-hidden">
+    <div className="relative max-w-[285px] overflow-hidden group">
       
       {/* Product Image */}
-      <Image src={`/imgs/Products_imgs/${image}`} alt={title} width={285} height={301} className="w-full h-auto" />
+      <Image src={`/imgs/Products_imgs/${image}`} alt={title} width={285} height={301} />
 
       {/* Badge */}
       {badgeText && <Badge badgeText={badgeText} />}
@@ -24,12 +24,12 @@ const ProductCard = ({ id, image, title, subtitle, price, beforeSalePrice, badge
       </div>
 
       {/* Info Section */}
-      <div className="w-[285px] px-[18px] py-[23px] bg-[#F4F5F7] z-20 relative">
-        <h2 className="text-[24px] font-semibold">{title}</h2>
-        <p className="text-[16px] font-medium text-gray-500">{subtitle}</p>
-        <span className="text-[20px] font-semibold">{price} EP</span>
+      <div className="w-[285px] px-[12px] md:px-[18px] py-[18px] md:py-[23px] bg-[#F4F5F7] z-20 relative">
+        <h2 className="text-[14px] md:text-[24px] font-semibold max-w-fit">{title}</h2>
+        <p className="text-[10px] md:text-[16px] font-medium text-gray-500 max-w-fit">{subtitle}</p>
+        <span className="text-[12px] md:text-[20px] font-semibold">{price} EP</span>
         {beforeSalePrice && (
-          <span className="text-[16px] font-normal ml-[40px] line-through text-gray-400">
+          <span className="text-[12px] md:text-[16px] font-normal ml-[40px] line-through text-gray-400">
             {beforeSalePrice} EP
           </span>
         )}

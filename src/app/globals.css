@@ -3,11 +3,16 @@
 
 :root {
   --primary: #B88E2F;
+  --secondary: #FAF3EA;
   --subtitle: #898989;
   --newBadgeColor: #2EC1AC;
   --saleBageColor: #E97171;
   --overlayColor: #6E6E6F;
   --paragraphColor:#9F9F9F;
+}
+
+.container{
+  @apply mx-auto px-2 lg:px-8;
 }
 
 @theme inline {
