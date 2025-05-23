@@ -31,12 +31,16 @@ export default function Breadcrumbs({ page1, page2, page3 , productId }: Breadcr
             <Link href="/shop">{page2}</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
-        <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href={`/products/${productId}`}>{page3}</Link>
-          </BreadcrumbLink>
-        </BreadcrumbItem>
+        {page3 && 
+          <>
+          <BreadcrumbItem>
+            <BreadcrumbLink asChild>
+              <Link href={`/products/${productId}`}>{page3}</Link>
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          </>
+          }
       </BreadcrumbList>
     </Breadcrumb>
     </div>

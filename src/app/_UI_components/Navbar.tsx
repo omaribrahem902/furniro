@@ -1,7 +1,8 @@
 "use client"
+import {motion} from "framer-motion";
 import Image from "next/image";
 import { navLinks } from "../../../public/assets";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Link from "next/link";
 import { Heart, Search } from "lucide-react";
 import CartModal from "./CartModal";
@@ -16,11 +17,7 @@ const Navbar = () => {
         <h1 className="text-2xl md:text-[34px] h-[41px] flex items-center font-bold">Furniro</h1>
       </div>
       <div className="hidden lg:block">
-        <div className="flex gap-[75px]">
-          {navLinks.map((item,index)=>(
-            <Link key={index} href={item.link} className="text-[16px] cursor-pointer hover:border-b-[2px] hover:border-(--primary) pb-1.5">{item.name}</Link>
-          ))}
-        </div>
+        <SlideTabs/>
       </div>
       <div className="flex gap-6 md:gap-9 lg:gap-[50px]">
         <span><svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 lg:w-7 lg:h-7"  viewBox="0 0 24 24"><path fill="currentColor" d="M20 12V7h2v6h-2m0 4h2v-2h-2m-10-2c2.67 0 8 1.34 8 4v3H2v-3c0-2.66 5.33-4 8-4m0-9a4 4 0 0 1 4 4a4 4 0 0 1-4 4a4 4 0 0 1-4-4a4 4 0 0 1 4-4m0 10.9c-2.97 0-6.1 1.46-6.1 2.1v1.1h12.2V17c0-.64-3.13-2.1-6.1-2.1m0-9A2.1 2.1 0 0 0 7.9 8a2.1 2.1 0 0 0 2.1 2.1A2.1 2.1 0 0 0 12.1 8A2.1 2.1 0 0 0 10 5.9"></path></svg></span>
@@ -63,3 +60,76 @@ const Navbar = () => {
 }
 
 export default Navbar;
+
+const SlideTabs = ()=>{
+  const [position,setPosition] = useState({
+    left:0,
+    width:0,
+    opacity:0,
+  });
+  return(
+      <ul
+      onMouseLeave={()=>{
+        setPosition((pv)=>({
+          ...pv,
+          opacity:0,
+        }));
+      }}
+       className="relative flex gap-[25px]">
+        {navLinks.map((item,index)=>(
+          <Tab key={index} navItem={item} setPosition={setPosition}/>
+        ))}
+        <Cursor position={position}/>
+    </ul>
+  )
+}
+
+type TabProps={
+  navItem:{ name: string; link: string; },
+  setPosition: Dispatch<SetStateAction<{
+    left: number;
+    width: number;
+    opacity: number;
+}>>
+
+}
+
+const Tab = ({navItem,setPosition}:TabProps)=>{
+  const ref = useRef(null);
+  return(
+    <Link
+    href={navItem.link}
+    ref={ref}
+    onMouseEnter={()=>{
+      if(!ref.current) return;
+
+      const {width} = ref.current.getBoundingClientRect();
+
+      setPosition({
+        width,
+        opacity:1,
+        left: ref.current.offsetLeft,
+      })
+     
+    }
+      
+    }
+     className="relative z-10 block uppercase text-white mix-blend-difference text-[16px] cursor-pointer px-3 py-1.5">
+      {navItem.name}
+     </Link>
+  )
+}
+
+
+type CursorProps ={
+  position:{ 
+    left: number;
+    width: number;
+    opacity: number;
+  }
+}
+const Cursor = ({position}:CursorProps)=>{
+  return(
+    <motion.div animate={position} className="absolute z-0 h-[36px] w-[100px] bg-black"> </motion.div>
+  )
+}

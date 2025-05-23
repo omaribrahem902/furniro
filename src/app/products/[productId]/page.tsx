@@ -11,7 +11,7 @@ export default async function productDetails({params}: {params: Promise<{product
     if(product === undefined){
         return(<><h1>no products</h1></>)
     }
-    const samecategoryProducts = products.filter(pro => pro.category === product.category);
+    const samecategoryProducts = products.filter(pro => (pro.category === product.category && pro.id !== product.id ));
     console.log(samecategoryProducts);
     return(
         <>

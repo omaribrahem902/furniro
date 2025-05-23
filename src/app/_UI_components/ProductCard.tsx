@@ -1,11 +1,21 @@
+"use client"
+// import { v4 as uuidv4 } from 'uuid';
 import Image from "next/image"
 import { Products } from "../../../public/assets"
 import Badge from "./Badge";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
 type ProductCardProps = Products;
 
-const ProductCard = ({ id, image, title, subtitle, price, beforeSalePrice, badgeText }: ProductCardProps) => {
+const ProductCard = ({ id,image, title, subtitle, price, beforeSalePrice, badgeText }: ProductCardProps) => {
+  const idRef = useRef(id);
+  console.log(idRef);
+  const router = useRouter();
+  const handleClick = ()=>{
+    router.push(`/products/${idRef.current}`);
+  }
   return (
-    <div className="relative max-w-[285px] overflow-hidden group">
+    <div onClick={handleClick} className="relative max-w-[285px] overflow-hidden group hover:shadow-xl hover:transition-shadow cursor-pointer">
       
       {/* Product Image */}
       <Image src={`/imgs/Products_imgs/${image}`} alt={title} width={285} height={301} />
