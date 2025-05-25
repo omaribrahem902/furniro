@@ -1,11 +1,14 @@
 import Breadcrumbs from "@/app/_UI_components/Breadcrumbs";
-import { products } from "../../../../public/assets";
+import { products} from "../../../../public/assets";
 import Link from "next/link";
 import Image from "next/image";
 import CustomButton from "@/app/_UI_components/CustomButton";
 import ProductCard from "@/app/_UI_components/ProductCard";
+import DetailsSubComponent from "../../_UI_components/DetailsSubComponent";
 
-export default async function productDetails({params}: {params: Promise<{productId:string}>}) {
+
+export default async function ProductDetails({params}: {params: Promise<{productId:string}>}) {
+    
     const productId = (await params).productId;
     const product = products.find((p)=> p.id === productId);
     if(product === undefined){
@@ -28,14 +31,7 @@ export default async function productDetails({params}: {params: Promise<{product
                         {product.beforeSalePrice && <span className="line-through text-(--paragraphColor) ml-3">{product.beforeSalePrice} EP</span>}
                     </p>
                     <p className=" text-wrap text-[13px] mt-3">{product.description}</p>
-                    <div className="flex gap-4 mt-4">
-                        <div className="border-[1px] border-[#ccc] w-fit px-4 py-3 text-[16px] flex gap-8 rounded-md">
-                            <button className="cursor-pointer">-</button>
-                            <span>1</span>
-                            <button className="cursor-pointer">+</button>
-                        </div>
-                        <CustomButton variant="secondary" size="md" rounded="rounded-lg"> Add To Cart </CustomButton>
-                    </div>
+                    <DetailsSubComponent {...product}/>
                     <hr  className="mt-10 mb-6 text-(--paragraphColor)"/>
                     <div className="flex gap-2 text-(--paragraphColor)">
                         <div className="flex flex-col gap-3">
@@ -76,3 +72,4 @@ export default async function productDetails({params}: {params: Promise<{product
     )
     
 }
+

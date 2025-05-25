@@ -6,11 +6,18 @@ import { Dispatch, SetStateAction, useRef, useState } from "react";
 import Link from "next/link";
 import { Heart, Search } from "lucide-react";
 import CartModal from "./CartModal";
+import { useRouter } from "next/navigation";
+
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+  const handleClick = ()=>{
+    router.replace("/");
+  }
   return (
     <div className="sticky top-0 z-50 w-full bg-white flex justify-between items-center px-5 md:px-7 lg:px-[77px] sm:py-4 md:py-5 lg:py-[30px] shadow-md">
-      <div className="flex gap-1 items-center ">
+      <div onClick={handleClick} className="flex gap-1 items-center cursor-pointer">
         <div className="relative w-8 h-6 md:w-12 md:h-8">
         <Image priority className="h-fit" src="/imgs/Furniro_logo.png" alt="logo" fill sizes="(max-width: 768px) 34px, 24px"/>
         </div>
@@ -55,6 +62,7 @@ const Navbar = () => {
         </div>
       )}
     </div>
+    
     </div>
   )
 }

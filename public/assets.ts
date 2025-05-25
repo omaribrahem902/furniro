@@ -24,6 +24,7 @@ export interface Products {
     subtitle: string,
     category: string,
     price: number,
+    quantity: number,
     description?: string,
     SalePercentage?: number
     beforeSalePrice?: number
@@ -39,6 +40,7 @@ export const products: Products[] = [
     subtitle: "Stylish cafe chair",
     category: "chairs",
     price: 2500,
+    quantity:1,
     description: "A chic and ergonomic cafe chair designed for comfort and style, perfect for modern dining or casual seating areas.",
     SalePercentage: -30,
     beforeSalePrice: 3500,
@@ -52,6 +54,7 @@ export const products: Products[] = [
     category: "chairs",
     description: "An elegant cafe chair with a sleek design, ideal for adding a touch of sophistication to any indoor or outdoor setting.",
     price: 2500,
+    quantity:1,
   },
   {
     id: "30aeb8b6-60a2-40a0-b3b1-1040d9a9a88d",
@@ -61,6 +64,7 @@ export const products: Products[] = [
     category: "luxury_sofas",
     description: "A spacious and luxurious sofa offering ultimate comfort with premium upholstery, perfect for a lavish living room.",
     price: 7000,
+    quantity:1,
     SalePercentage: -50,
     beforeSalePrice: 14000,
     badgeText: "-50%",
@@ -73,6 +77,7 @@ export const products: Products[] = [
     category: "outdoor_furniture",
     description: "A stylish and durable bar table and stool set designed for outdoor entertaining, blending functionality with modern aesthetics.",
     price: 5000,
+    quantity:1,
     badgeText: "New",
   },
   {
@@ -83,6 +88,7 @@ export const products: Products[] = [
     category: "lamp",
     description: "A sleek and modern night lamp that provides soft, ambient lighting, ideal for bedrooms or cozy reading corners.",
     price: 1500,
+    quantity:1,
   },
   {
     id: "79064095-8a95-439a-bd1e-7fd2ecdd9914",
@@ -92,6 +98,7 @@ export const products: Products[] = [
     category: "outdoor_furniture",
     description: "A compact and stylish mug designed for outdoor use, perfect for enjoying a hot beverage in any setting.",
     price: 1500,
+    quantity:1,
     badgeText: "New",
   },
   {
@@ -102,6 +109,7 @@ export const products: Products[] = [
     category: "outdoor_furniture",
     description: "An adorable and comfortable bed set tailored for outdoor relaxation, combining cute design with sturdy construction.",
     price: 7000,
+    quantity:1,
     beforeSalePrice: 14000,
     badgeText: "-50%"
   },
@@ -113,6 +121,7 @@ export const products: Products[] = [
     category: "luxury_sofas",
     description: "A minimalist flower pot with a sleek design, perfect for enhancing indoor or outdoor spaces with a touch of greenery.",
     price: 5000,
+    quantity:1,
     badgeText: "New",
   },
   {
@@ -123,6 +132,7 @@ export const products: Products[] = [
   category: "chairs",
   description: "A Scandinavian-inspired chair with a soft grey fabric seat and backrest, paired with sleek wooden legs. Perfect for stylish dining or home office settings.",
   price: 3200,
+  quantity:1,
   badgeText: "New",
 },
 // {
