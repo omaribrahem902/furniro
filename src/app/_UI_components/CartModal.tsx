@@ -1,18 +1,21 @@
+"use client"
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { ShoppingCart, X } from 'lucide-react';
 import Link from 'next/link';
-import {useCartItemStore,useCartStoreCounter} from "../_Stores/Cart_Store";
+import { useCartItemStore,useCartStoreCounter} from "../_Stores/Cart_Store";
+import { useDeleteFromCart } from '../hooks/useDeleteFromCart';
+import { useHydrateCart } from '../hooks/useHydrateCart';
 
 const CartModal: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [calcTotalCost,setCalcTotalCost] = useState(0);
   const sidebarRef = useRef<HTMLDivElement | null>(null);
-  // const [disabledClear,setDisableClear] = useState(true);
   const {cartItems,deleteAll,totalCost,calcTotalCost} = useCartItemStore();
-  const {cartItemCount,zeroCount,incrementCartItemCount,decrementCartItemCount} = useCartStoreCounter();
-  
+  const {cartItemCount,zeroCount} = useCartStoreCounter();
 
+
+  useHydrateCart();
+  
   const handleClearBtn =()=>{
     deleteAll();
     zeroCount();
@@ -53,7 +56,7 @@ const CartModal: React.FC = () => {
         aria-label="Open cart"
       >
         <ShoppingCart />
-        {cartItemCount !== 0 && (<span className='flex justify-center items-center absolute top-3 -left-2 w-5 h-5 rounded-full bg-red-600 text-[11px] text-white'>{cartItemCount}</span>)}
+        {cartItemCount > 0 && (<span className='flex justify-center items-center absolute top-3 -left-2 w-5 h-5 rounded-full bg-red-600 text-[11px] text-white'>{cartItemCount}</span>)}
       </button>
 
       {/* Overlay */}
@@ -68,15 +71,15 @@ const CartModal: React.FC = () => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="relative p-6 flex flex-col h-full">
+        <div className="relative md:p-6 p-6 pt-8  flex flex-col h-full">
           
-           <X onClick={()=>setIsOpen(false)} className='md:hidden mr-4 absolute top-3 right-0' size={24} strokeWidth={1.5} />
-            <div className='flex justify-between'>
-            <h2 className="text-xl font-semibold  pb-2">
-              Shopping Cart 
-            </h2> 
-            <button disabled={!Boolean(cartItems.length)} onClick={handleClearBtn} className={` bg-red-300  text-white border-2 rounded-3xl px-4 py-2 ${cartItems.length === 0? " cursor-not-allowed": "hover:bg-red-600 cursor-pointer" }`}>
-                Clear
+           <X onClick={()=>setIsOpen(false)} className='md:hidden mr-2 absolute top-3 right-0' size={24} strokeWidth={1.5} />
+            <div className='flex justify-between items-center'>
+              <h2 className="text-xl font-semibold ">
+                Shopping Cart 
+              </h2> 
+              <button disabled={!Boolean(cartItems.length)} onClick={handleClearBtn} className={` bg-red-300  text-white border-2 rounded-3xl px-4 py-2 ${cartItems.length === 0? " cursor-not-allowed": "hover:bg-red-600 cursor-pointer" }`}>
+                  Clear
               </button>
             </div>
              
@@ -130,12 +133,7 @@ type CartItemProps = {
 };
 
 const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity,imgUrl }) => {
-  const { deleteCartItem } = useCartItemStore();
-  const {decrementCartItemCount} = useCartStoreCounter();
-  const handleDeleteItem = (id:string)=>{
-    deleteCartItem(id);
-    decrementCartItemCount(quantity);
-  }
+  const {handleDeleteItem} = useDeleteFromCart();
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center">
@@ -147,7 +145,7 @@ const CartItem: React.FC<CartItemProps> = ({ id, title, price, quantity,imgUrl }
           </p>
         </div>
       </div>
-      <button onClick={() => handleDeleteItem(id)} className="text-white bg-gray-400 p-0.5 rounded-full cursor-pointer">
+      <button onClick={() => handleDeleteItem(id,quantity)} className="text-white bg-gray-400 p-0.5 rounded-full cursor-pointer">
         <X size={16} strokeWidth={1.5} />
       </button>
     </div>

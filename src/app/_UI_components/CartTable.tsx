@@ -1,14 +1,15 @@
 "use client"
 import { Trash2 } from "lucide-react"
 import Image from "next/image"
-import {useCartItemStore, useCartStoreCounter} from "../_Stores/Cart_Store"
+import {useCartItemStore} from "../_Stores/Cart_Store"
+import { useDeleteFromCart } from "../hooks/useDeleteFromCart";
+import { useHydrateCart } from "../hooks/useHydrateCart";
+import { usePersistCartItems } from "../hooks/usePersistCartItems ";
 export default function CartTable(){
-    const {cartItems,deleteCartItem} = useCartItemStore();
-    const {decrementCartItemCount} = useCartStoreCounter()
-    const handleDeleteItem = (id:string,quantity:number)=>{
-    deleteCartItem(id);
-    decrementCartItemCount(quantity);
-  }
+    const {cartItems} = useCartItemStore();
+    const {handleDeleteItem} = useDeleteFromCart();
+    useHydrateCart();
+    usePersistCartItems();
 return(
 <>        
 <div className="relative w-full  md:w-[60vw]  overflow-x-auto">

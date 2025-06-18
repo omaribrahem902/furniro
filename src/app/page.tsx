@@ -5,6 +5,10 @@ import ProductCard from "./_UI_components/ProductCard";
 import CustomButton from "./_UI_components/CustomButton";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { AddingItemAlert } from "./_UI_components/AddingItemAlert";
+import { useAlertStore } from "./_Stores/Cart_Store";
+import { useEffect } from "react";
+import { usePersistCartItems } from "./hooks/usePersistCartItems ";
 
 const Carousel = dynamic(()=> import("./_UI_components/Carousel"),{
   ssr: false,
@@ -17,8 +21,18 @@ const GridImgs = dynamic(()=> import("./_UI_components/GridImgs"),{
 });
 
 
+
 export default function Home() {
-  
+  const {showAlert} = useAlertStore();
+useEffect(()=>{
+  const session = localStorage.getItem("cartItems");
+  if(!session){
+    localStorage.setItem("cartItems", JSON.stringify([]));
+  }
+},[])
+
+usePersistCartItems();
+
   return (
     <>
     {/* start of Discover our new collection */}
@@ -31,6 +45,7 @@ export default function Home() {
         <Link href={"/shop"}> <button className="text-[10px] lg:text-[16px] font-bold text-white px-8 py-2.5 lg:px-[72px] lg:py-[25px] bg-(--primary) mt-3 lg:mt-10 cursor-pointer">BUY NOW</button> </Link>
       </div>
     </div>
+    {showAlert && <AddingItemAlert/>}
 
     </section>
     {/* end of Discover our new collection */}

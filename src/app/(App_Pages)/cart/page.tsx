@@ -1,7 +1,5 @@
 "use client"
-import Image from "next/image";
 import HeroSection from "../../_UI_components/HeroSection"
-import { products } from "../../../../public/assets";
 import CartTable from "@/app/_UI_components/CartTable";
 import {useCartItemStore} from "../../_Stores/Cart_Store";
 
