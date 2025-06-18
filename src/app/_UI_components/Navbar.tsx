@@ -104,7 +104,7 @@ type TabProps={
 }
 
 const Tab = ({navItem,setPosition}:TabProps)=>{
-  const ref = useRef(null);
+  const ref = useRef<HTMLAnchorElement>(null);
   return(
     <Link
     href={navItem.link}
